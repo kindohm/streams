@@ -1,0 +1,108 @@
+
+let 
+  gtfo pat = (const $ s "~") $ pat
+  balance pat = ccv pat # ccn 19
+  env pat = ccv pat # ccn 77
+  cutoff pat = ccv pat # ccn 74
+  maxcutoff = 90
+  decay pat = ccv pat # ccn 80
+  bend pat = ccv pat # ccn 23
+  lfospeed pat = ccv pat # ccn 102
+  lfodepth pat = ccv pat # ccn 109
+  pad1pat = midichan "0*16"
+  pad2pat = midichan "1*16"
+  delaytime pat = ccv pat # ccn 16
+  delayfb pat = ccv pat # ccn 19
+
+hush
+
+
+d1 
+  $ (|* gain 1.2)
+  $ stack [
+    -- pad1
+    pad1pat # gain (slow 4.333 $ range 0.3 1 $ sine) 
+      # note (scale "ritusen" (slow 2 $ run 12 |- "20"))
+    , pad1pat # balance (slow 1.8 $ range 0 127 $ sine) 
+    , pad1pat # env (slow 1.9 $ range 64 100 $ sine) 
+    , pad1pat # cutoff (slow 1.6 $ range 64 maxcutoff $ sine) 
+    , pad1pat # decay (slow 2.4 $ range 127 127 $ sine)
+    , pad1pat # bend (slow 3.1 $ range 0 127 $ sine)
+    , pad1pat # lfospeed (slow 4.1 $ range 64 127 $ sine)
+    , pad1pat # lfodepth (slow 4.2 $ range 100 127 $ sine)
+    -- pad2
+    , ((0.0625) ~>) $ stack [
+      pad2pat # gain (slow 4.2222 $ range 0.3 1 $ sine) 
+        # note (scale "ritusen" (slow 2.1 $ run 12 |- "20"))
+      , pad2pat # balance (slow 1.71 $ range 0 127 $ sine) 
+      , pad2pat # env (slow 2.1 $ range 64 100 $ sine) 
+      , pad2pat # cutoff (slow 2.2 $ range 64 maxcutoff $ sine) 
+      , pad2pat # decay (slow 2.3 $ range 127 127 $ sine)
+      , pad2pat # bend (slow 3.2 $ range 0 127 $ sine)
+      , pad2pat # lfospeed (slow 4.3 $ range 64 127 $ sine)
+      , pad2pat # lfodepth (slow 4.4 $ range 100 127 $ sine)
+    ]
+    , delaytime (segment 1.5 $ (11 ~>) $ choose [0,1,2,3,4,8,12,16,24,32,48]) # midichan 12
+    , delayfb (segment 2 $ range 60 65 $ rand) # midichan 12
+    , degradeBy 0.8
+      $ gain "1*16"
+      # midichan ((1 ~>) $ choose [6,7])  # note "c3"
+    , gain "1/8" # midichan "[10,6]" # note "c3"
+  ] # s "rytm" # cps 0.5
+
+
+hush
+
+
+d1 $ midichan "0*4" 
+    # gain (slow 4.2222 $ range 0.3 1 $ sine) 
+    # note (scale "ritusen" (slow 2.1 $ run 12 |- "20"))
+    # s "rytm"
+
+hush
+
+d1 
+  $ degradeBy 0.5
+  $ (1 ~>)
+  $ gain "1.2*16"
+  # midichan (choose [6,7])  
+  # note "c3"
+  # s "rytm"
+
+hush
+
+
+
+
+
+
+
+
+
+
+
+
+
+hush
+
+
+
+d1
+  $ (|* gain 1.2)
+  $ degradeBy 0.8
+  $ gain "1*16"
+  # midichan ((1 ~>) $ choose [6,7]) 
+  # s "rytm" # note "c3" # cps 0.5
+
+
+hush
+
+
+
+
+
+
+
+
+
+
