@@ -1,0 +1,19 @@
+let 
+  gtfo pat = (const $ s "~") $ pat
+  balance pat = ccv pat # ccn 19
+  env pat = ccv pat # ccn 77
+  cutoff pat = ccv pat # ccn 74
+  maxcutoff = 90
+  decay pat = ccv pat # ccn 80
+  bend pat = ccv pat # ccn 23
+  lfospeed pat = ccv pat # ccn 102
+  lfodepth pat = ccv pat # ccn 109
+  pad1pat = midichan "0*16"
+  pad2pat = midichan "1*16"
+  delaytime pat = ccv pat # ccn 16
+  delayfb pat = ccv pat # ccn 19
+  tune pat = ccv pat # ccn 17
+  detune pat = ccv pat # ccn 20
+  cpdecay pat = ccv pat # ccn 18
+  delaysend pat = ccv pat # ccn 82
+  scene pat = ccv pat # ccn 92
